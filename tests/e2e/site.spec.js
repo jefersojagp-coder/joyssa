@@ -68,3 +68,50 @@ test("failed photographs leave loading state and preserve the page", async ({
   await expect(img).toHaveAttribute("data-load-state", "error");
   await expect(page.locator("#tour-virtual")).toContainText("Em breve");
 });
+
+test("mobile delivery and Instagram retain their intended visual order", async ({
+  page,
+  isMobile,
+}, testInfo) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await expect(page.locator(".location-ribbon")).toHaveCount(0);
+  expect(await page.locator("body").innerText()).not.toMatch(/[↗↓]/u);
+  await expect(page.locator(".direction-icon").first()).toBeVisible();
+  await page.locator("#delivery").scrollIntoViewIfNeeded();
+  if (isMobile) {
+    for (const option of await page.locator(".delivery-option").all()) {
+      const center = await option.evaluate((el) => {
+        const rect = el.getBoundingClientRect();
+        const icon = el.querySelector(".delivery-icon").getBoundingClientRect();
+        return Math.abs(rect.x + rect.width / 2 - icon.x - icon.width / 2);
+      });
+      expect(center).toBeLessThan(2);
+    }
+  }
+  await testInfo.attach("delivery-layout", {
+    body: await page.screenshot(),
+    contentType: "image/png",
+  });
+  await page.locator(".instagram-gallery").scrollIntoViewIfNeeded();
+  const order = await page
+    .locator(".instagram-gallery")
+    .evaluate((gallery) =>
+      [...gallery.children]
+        .sort(
+          (a, b) =>
+            a.getBoundingClientRect().left - b.getBoundingClientRect().left,
+        )
+        .map((item) => item.classList.contains("instagram-center")),
+    );
+  expect(order.indexOf(true)).toBe(isMobile ? 0 : 2);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  await testInfo.attach("instagram-layout", {
+    body: await page.screenshot(),
+    contentType: "image/png",
+  });
+});
