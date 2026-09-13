@@ -137,6 +137,12 @@ test("Joy gallery cycles through six products and presents freshness information
       "complete",
       true,
     );
+    if ([0, 1, 3].includes(i)) {
+      await testInfo.attach(`product-framing-${i}`, {
+        body: await gallery.locator(".experience-stage").screenshot(),
+        contentType: "image/png",
+      });
+    }
   }
   await gallery.locator("[data-experience-slide]").first().click();
   await testInfo.attach("experience-six-photos", {

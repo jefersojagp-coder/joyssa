@@ -105,7 +105,7 @@ body.motion-paused main img{filter:none}
 }
 
 /* Product-led framing for six original Joy photographs. */
-.experience-stage .experience-slide{transform:scale(var(--subject-scale,1));transform-origin:center}
+.experience-stage .experience-slide{transform:translate(var(--subject-x,0),var(--subject-y,0)) scale(var(--subject-scale,1));transform-origin:center}
 @media(max-width:760px){.experience-slider-bottom{flex-direction:column;align-items:center;gap:8px}.experience-slider-bottom p{max-width:none;text-align:center}.experience-controls{justify-content:center}.experience-dot{width:32px}}
 
 /* Align the signature to the same center as the footer logo. */
