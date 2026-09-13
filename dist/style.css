@@ -86,3 +86,6 @@ body.motion-paused main img{filter:none}
 .faq-heading h2{font:400 clamp(40px,4.5vw,62px)/1.1 var(--serif);letter-spacing:-1px;margin:0 0 24px}.faq-heading h2 em{color:var(--red)}
 .faq-heading>p:last-child{color:var(--muted);max-width:310px}.faq-list details{border-bottom:1px solid var(--line);padding:22px 0}.faq-list details:first-child{padding-top:0}.faq-list summary{font-size:17px;cursor:pointer;line-height:1.5;padding-right:12px}.faq-list summary::marker{color:var(--red)}.faq-list p{color:var(--muted);font-size:15px;line-height:1.8;margin:18px 0 0}.faq-list a{text-decoration:underline;text-underline-offset:4px;color:var(--ink)}
 @media(max-width:760px){.faq-section{grid-template-columns:1fr;gap:25px;padding-block:42px 55px}.faq-heading h2{font-size:44px}.faq-heading>p:last-child{max-width:none}.menu-introduction{font-size:14px;margin-bottom:25px}}
+
+/* Keep hero controls above the copy container and its transparent padding. */
+.hero-bottom{z-index:2}
