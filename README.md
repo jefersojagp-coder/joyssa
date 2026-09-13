@@ -14,7 +14,7 @@ O diretório dist contém a referência navegável em HTML, CSS e JavaScript, co
 
 Reproduzir no editor instalado as seções: cabeçalho sobreposto, abertura com galeria, experiência Joy, galeria expansível de pratos, cardápio com categorias laterais, delivery, localização com foto do Alpha Mall, espaço para tour virtual, galeria do Instagram e rodapé. Aplicar a paleta e tipografia globais, subir os arquivos de assets à biblioteca de mídia e substituir seus caminhos. Reconstruir os blocos como elementos editáveis do editor para facilitar atualizações futuras. O CSS responsivo serve como referência exata das proporções.
 
-O cardápio vem da versão 13 do projeto anterior. Antes da publicação no domínio oficial, confirmar preços, horários e disponibilidade com o restaurante. O PDF conserva o conteúdo da versão 13 com imagens comprimidas. O domínio oficial não foi alterado.
+O cardápio vem da versão 13 do projeto anterior. Antes da publicação no domínio oficial, confirmar preços, horários e disponibilidade com o restaurante. O PDF para download é o JOY-cardapio-A4-v12.pdf indicado pelo cliente em 13/09/2026, otimizado de 61,2 MB para 4,8 MB; as 14 páginas e os textos foram preservados. O domínio oficial não foi alterado.
 
 ## Prévia local
 Servir dist com um servidor HTTP estático. Nenhuma instalação de dependências é necessária.
@@ -51,3 +51,7 @@ Textos, metadados e dados estruturados preparados para buscas por restaurante ja
 ## Repositório informado
 
 Destino: https://github.com/jefersojagp-coder/joyssa. O acesso de escrita foi autorizado pelo proprietário. O workflow manual “Create project issues” permite republicar o backlog, verificando títulos existentes antes de criar. O envio desta pasta deve excluir .openai, .git, work, outputs, arquivos .env e node_modules.
+
+## Atualização de fotos e PDF
+
+A fachada usa a nova imagem Alpha Mall enviada em 13/09/2026. A categoria Quentes & doces usa a fotografia real de yakisoba RBS09772.jpg, do acervo do Joy, com enquadramento preservado e arquivo otimizado para web. O PDF A4 v12 substitui a versão anterior apenas no download; os 141 itens do cardápio navegável foram preservados.

@@ -45,7 +45,10 @@ const categoryPhotos = {
   sushis: ["sashimi-premium.webp", "Sushis e sashimis do Joy"],
   temakis: ["temaki-premium.webp", "Temaki de salmão do Joy"],
   entradas: ["shimeji-premium.webp", "Shimeji do Joy"],
-  quentes: ["shimeji-premium.webp", "Shimeji da cozinha quente do Joy"],
+  quentes: [
+    "yakisoba-joy.webp",
+    "Yakisoba do Joy com camarão, carnes e legumes",
+  ],
   bebidas: null,
 };
 let categoryAnimation;
