@@ -35,6 +35,6 @@ GitHub autenticado pelo proprietário; as nove Issues estão publicadas em https
 
 ## Validação desta entrega
 
-19 testes unitários e de integração passaram; cobertura de linhas de 86,15%, incluindo verificações de SEO e exportação pública isolada. Stryker analisou 209 mutações, com pontuação de 80,86%. ArchContract, contratos do cardápio, Biome e Knip passaram. A auditoria das dependências não encontrou vulnerabilidades conhecidas na versão instalada. Os oito cenários Playwright estão escritos; a execução local foi bloqueada antes de abrir o Chromium pelo sandbox do macOS (MachPort/Permission denied), portanto não foram certificados como aprovados. Devem rodar no GitHub Actions após conectar o repositório.
+19 testes unitários e de integração passaram; cobertura de linhas de 86,15%, incluindo verificações de SEO e exportação pública isolada. Stryker analisou 209 mutações, com pontuação de 80,86%. ArchContract, contratos do cardápio, Biome e Knip passaram. A auditoria das dependências não encontrou vulnerabilidades conhecidas na versão instalada. Os oito cenários Playwright passaram no GitHub Actions, em desktop e celular, após corrigir a sobreposição que bloqueava o botão de pausa no desktop. Os 19 testes unitários e de integração e as verificações de código também passaram. Execução: https://github.com/jefersojagp-coder/joyssa/actions/runs/34746037181.
 
 O SDK Sentry compilado é uma exceção explícita do Knip, pois seu import está no gerador do bundle. Vite foi fixado em uma versão compatível com o executor de testes.
