@@ -65,7 +65,7 @@ it("keeps the complete menu and local answers accessible without JavaScript", ()
   );
   expect(doc.querySelectorAll(".menu-item")).toHaveLength(141);
   expect(doc.querySelectorAll(".menu-group[hidden]")).toHaveLength(0);
-  expect(doc.querySelectorAll("#duvidas details")).toHaveLength(4);
+  expect(doc.querySelectorAll("#duvidas details")).toHaveLength(5);
   for (const a of doc.querySelectorAll('#duvidas a[href^="#"]')) {
     expect(doc.getElementById(a.hash.slice(1))).not.toBeNull();
   }
