@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler"
+  },
+  "include": ["dist/app.js", "dist/lib/**/*.js", "dist/monitoring-config.js"],
+  "exclude": ["dist/vendor"]
+}

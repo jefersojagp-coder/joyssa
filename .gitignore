@@ -1,0 +1,14 @@
+work/
+outputs/
+.DS_Store
+
+node_modules/
+coverage/
+playwright-report/
+test-results/
+reports/
+.stryker-tmp/
+.env*
+!.env.example
+
+.openai/

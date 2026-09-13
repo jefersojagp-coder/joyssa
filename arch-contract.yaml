@@ -1,0 +1,18 @@
+version: 1
+project:
+  name: joy-sushi-bar
+  tsconfig: tsconfig.json
+paths:
+  include: [dist/app.js, dist/lib, dist/monitoring-config.js]
+  exclude: [dist/vendor/**]
+layers:
+  - name: ui
+    match: [dist/app.js]
+  - name: capabilities
+    match: [dist/lib/**/*.js]
+  - name: config
+    match: [dist/monitoring-config.js]
+ruleset:
+  ui: { mayDependOn: [capabilities, config] }
+  capabilities: { mayDependOn: [] }
+  config: { mayDependOn: [] }

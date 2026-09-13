@@ -1,0 +1,11 @@
+{
+  "entry": ["dist/app.js", "scripts/*.mjs", "tests/**/*.js"],
+  "project": [
+    "dist/lib/**/*.js",
+    "dist/monitoring-config.js",
+    "scripts/**/*.mjs",
+    "tests/**/*.js",
+    "*.mjs"
+  ],
+  "ignoreDependencies": ["@sentry/browser"]
+}

@@ -1,0 +1,27 @@
+{
+  "files": {
+    "ignoreUnknown": true
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space"
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended"
+    }
+  },
+  "javascript": {
+    "globals": [
+      "window",
+      "document",
+      "matchMedia",
+      "innerHeight",
+      "IntersectionObserver",
+      "requestAnimationFrame",
+      "cancelAnimationFrame",
+      "PerformanceObserver"
+    ]
+  }
+}
