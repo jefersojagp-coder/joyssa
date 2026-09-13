@@ -5,7 +5,7 @@ import { JSDOM } from "jsdom";
 const html = readFileSync("dist/index.html", "utf8");
 const doc = new JSDOM(html).window.document;
 assert.equal(doc.querySelectorAll(".menu-item").length, 141);
-assert.equal(doc.querySelectorAll(".experience-slide").length, 3);
+assert.equal(doc.querySelectorAll(".experience-slide").length, 6);
 assert.equal(doc.querySelectorAll(".delivery-option").length, 3);
 assert.equal(doc.querySelectorAll('a[href^="mailto:"]').length, 0);
 for (const node of doc.querySelectorAll("[src],link[href]")) {

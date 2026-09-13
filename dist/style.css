@@ -112,3 +112,11 @@ body.motion-paused main img{filter:none}
 .footer-identity{width:165px;max-width:100%;display:flex;flex-direction:column;align-items:center}
 .footer-identity .footer-tagline{width:100%;max-width:none;text-align:center;margin:16px 0 0}
 @media(max-width:760px){.footer-identity{width:140px}}
+
+/* Gentle, staggered movement keeps delivery choices noticeable. */
+@keyframes delivery-float{0%,100%{translate:0 0}50%{translate:0 -7px}}
+.delivery-icon{animation:delivery-float 3.8s ease-in-out infinite}
+.delivery-option:nth-child(2) .delivery-icon{animation-delay:-1.25s}
+.delivery-option:nth-child(3) .delivery-icon{animation-delay:-2.5s}
+body.motion-paused .delivery-icon{animation:none;translate:none}
+@media(prefers-reduced-motion:reduce){.delivery-icon{animation:none;translate:none}}
