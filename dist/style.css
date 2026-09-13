@@ -103,3 +103,7 @@ body.motion-paused main img{filter:none}
  .delivery-action{justify-content:center;align-items:center;font-size:14px;margin-top:14px;padding:8px 0;border-bottom:1px solid #ffffff65}
  .instagram-gallery>.instagram-center{order:-1}
 }
+
+/* Product-led framing for six original Joy photographs. */
+.experience-stage .experience-slide{transform:scale(var(--subject-scale,1));transform-origin:center}
+@media(max-width:760px){.experience-slider-bottom{flex-direction:column;align-items:center;gap:8px}.experience-slider-bottom p{max-width:none;text-align:center}.experience-controls{justify-content:center}.experience-dot{width:32px}}

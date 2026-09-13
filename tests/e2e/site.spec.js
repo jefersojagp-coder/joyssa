@@ -115,3 +115,39 @@ test("mobile delivery and Instagram retain their intended visual order", async (
     contentType: "image/png",
   });
 });
+
+test("Joy gallery cycles through six products and presents freshness information", async ({
+  page,
+}, testInfo) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const gallery = page.locator(".experience-slider");
+  await gallery.scrollIntoViewIfNeeded();
+  await expect(gallery.locator(".experience-slide")).toHaveCount(6);
+  for (let i = 0; i < 6; i++) {
+    await gallery.locator("[data-experience-slide]").nth(i).click();
+    await expect(gallery.locator(".experience-slide").nth(i)).toHaveClass(
+      /active/,
+    );
+    await expect(gallery.locator(".experience-slide.active")).toHaveCount(1);
+    await expect(
+      gallery.locator("[data-experience-slide]").nth(i),
+    ).toHaveAttribute("aria-pressed", "true");
+    await expect(gallery.locator(".experience-slide").nth(i)).toHaveJSProperty(
+      "complete",
+      true,
+    );
+  }
+  await gallery.locator("[data-experience-slide]").first().click();
+  await testInfo.attach("experience-six-photos", {
+    body: await page.screenshot(),
+    contentType: "image/png",
+  });
+  await expect(page.locator(".faq-list details").first()).toContainText(
+    "Recebemos salmão todos os dias",
+  );
+  await expect(page.locator(".faq-list details").first()).toHaveAttribute(
+    "open",
+    "",
+  );
+});
