@@ -46,7 +46,7 @@ Inclui testes Vitest, Playwright, Stryker, ArchContract, Biome, Commitlint e Kni
 
 ## SEO local e publicação no domínio oficial
 
-Textos, metadados e dados estruturados preparados para buscas por restaurante japonês e delivery em Alphaville, Salvador. Consulte docs/SEO.md para a aplicação ao WordPress e os limites da prévia privada. `npm run seo:production` gera uma exportação estática em work/joy-production, sem alterar o acesso do Sites.
+Textos, metadados e dados estruturados preparados para buscas por restaurante japonês e delivery em Alphaville, Salvador. Consulte docs/SEO.md para a aplicação ao WordPress e os limites da prévia de apresentação. `npm run seo:production` gera uma exportação estática em work/joy-production, sem alterar o acesso do Sites.
 
 ## Repositório informado
 

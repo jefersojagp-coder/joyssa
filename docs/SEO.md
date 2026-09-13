@@ -14,7 +14,7 @@
 
 ## Prévia e domínio oficial
 
-A prévia no Sites continua restrita ao proprietário, com noindex e robots.txt bloqueando rastreamento. Essas regras não substituem a proteção de acesso. Nenhum ajuste de permissão foi realizado.
+A prévia de apresentação mantém noindex e robots.txt bloqueando rastreamento. O acesso é configurado separadamente no Sites para permitir o compartilhamento com o cliente. Essas regras de indexação não impedem a abertura por quem tem o link.
 
 `npm run seo:preview` atualiza os metadados da prévia em dist.
 `npm run seo:production` copia o site para work/joy-production e prepara canonical, compartilhamento, dados estruturados, robots e sitemap para https://joyrestaurante.com/. Não altera a prévia.
