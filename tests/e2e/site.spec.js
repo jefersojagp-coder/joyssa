@@ -173,7 +173,7 @@ test("menu covers disclose products on request and preserve product shortcuts", 
   await expect(page.locator(".menu-edition-executive")).toContainText(
     "ALMOÇO EXECUTIVO",
   );
-  await expect(page.locator(".pdf-link")).toHaveAttribute(
+  await expect(page.locator(".menu-heading .pdf-link")).toHaveAttribute(
     "href",
     "assets/cardapio-joy.pdf?v=15",
   );
