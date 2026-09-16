@@ -119,3 +119,24 @@ it("keeps products collapsed until requested and restores entry focus on close",
   expect(panel.hidden).toBe(false);
   expect(entry.getAttribute("aria-expanded")).toBe("true");
 });
+
+it("switches between full and executive menus without mixing prices", () => {
+  const full = document.querySelector("#joy-menu-panel");
+  const executive = document.querySelector("#executive-menu-panel");
+  const button = document.querySelector("#open-executive-menu");
+  expect(executive.hidden).toBe(true);
+  document.querySelector("#open-joy-menu").click();
+  button.click();
+  expect(full.hidden).toBe(true);
+  expect(executive.hidden).toBe(false);
+  expect(document.activeElement.id).toBe("executive-menu-panel-title");
+  expect(executive.querySelectorAll(".executive-item")).toHaveLength(33);
+  expect(executive.querySelectorAll(".executive-group")).toHaveLength(6);
+  document.querySelector("#close-executive-menu").click();
+  expect(executive.hidden).toBe(true);
+  expect(document.activeElement).toBe(button);
+  button.click();
+  document.querySelector('[data-jump="temakis"]').click();
+  expect(executive.hidden).toBe(true);
+  expect(full.hidden).toBe(false);
+});

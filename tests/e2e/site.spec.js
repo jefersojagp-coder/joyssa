@@ -171,7 +171,7 @@ test("menu covers disclose products on request and preserve product shortcuts", 
   await expect(page.locator(".menu-edition")).toHaveCount(2);
   await expect(page.locator(".price").first()).toBeHidden();
   await expect(page.locator(".menu-edition-executive")).toContainText(
-    "EM BREVE",
+    "ALMOÇO EXECUTIVO",
   );
   await expect(page.locator(".pdf-link")).toHaveAttribute(
     "href",
@@ -208,6 +208,46 @@ test("menu covers disclose products on request and preserve product shortcuts", 
   await page.locator('[data-jump="temakis"]').first().click();
   await expect(page.locator("#joy-menu-panel")).toBeVisible();
   await expect(page.locator('[data-filter="temakis"]')).toBeFocused();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+});
+
+test("executive lunch opens independently with its own prices and PDF", async ({
+  page,
+}, testInfo) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/#cardapio");
+  await expect(page.locator("#executive-menu-panel")).toBeHidden();
+  await page.locator("#open-joy-menu").click();
+  await page.locator("#open-executive-menu").click();
+  await expect(page.locator("#joy-menu-panel")).toBeHidden();
+  const panel = page.locator("#executive-menu-panel");
+  await expect(panel).toBeVisible();
+  await expect(panel.locator(".executive-item")).toHaveCount(33);
+  await expect(panel.locator(".executive-group")).toHaveCount(6);
+  await expect(panel).toContainText("R$ 42,90");
+  await expect(panel.locator(".executive-pdf")).toHaveAttribute(
+    "href",
+    "assets/menu-executivo-joy-v2.pdf",
+  );
+  const pdf = await page.request.get("/assets/menu-executivo-joy-v2.pdf");
+  expect(pdf.ok()).toBe(true);
+  expect((await pdf.body()).subarray(0, 5).toString()).toBe("%PDF-");
+  await testInfo.attach("executive-menu", {
+    body: await panel.screenshot(),
+    contentType: "image/png",
+  });
+  await page.locator("#close-executive-menu").click();
+  await expect(panel).toBeHidden();
+  await expect(page.locator("#open-executive-menu")).toBeFocused();
+  await page.locator("#open-executive-menu").press("Enter");
+  await expect(page.locator("#executive-menu-panel-title")).toBeFocused();
+  await page.locator("#open-joy-menu").click();
+  await expect(panel).toBeHidden();
+  await expect(page.locator("#joy-menu-panel")).toBeVisible();
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= innerWidth,

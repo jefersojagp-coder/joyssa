@@ -43,6 +43,7 @@ const menuEntry = document.querySelector("#open-joy-menu");
 const menuPanel = document.querySelector("#joy-menu-panel");
 const setCardapioVisible = createDisclosure(menuPanel, motionAllowed);
 function setCardapioOpen(open, keyboard = false) {
+  if (open) setExecutiveOpen(false, true);
   menuEntry.setAttribute("aria-expanded", String(open));
   document.querySelector("#joy-menu-action").textContent = open
     ? "Fechar cardápio"
@@ -67,6 +68,37 @@ document.querySelector("#close-joy-menu").addEventListener("click", (event) => {
   menuEntry.focus({ preventScroll: true });
   menuEntry.scrollIntoView({ behavior: "instant", block: "center" });
 });
+const executiveEntry = document.querySelector("#open-executive-menu");
+const executivePanel = document.querySelector("#executive-menu-panel");
+const setExecutiveVisible = createDisclosure(executivePanel, motionAllowed);
+function setExecutiveOpen(open, keyboard = false) {
+  executiveEntry.setAttribute("aria-expanded", String(open));
+  document.querySelector("#executive-menu-action").textContent = open
+    ? "Fechar menu executivo"
+    : "Explorar menu executivo";
+  void setExecutiveVisible(open, keyboard);
+}
+executiveEntry.addEventListener("click", (event) => {
+  const open = executiveEntry.getAttribute("aria-expanded") !== "true";
+  if (open) setCardapioOpen(false, true);
+  setExecutiveOpen(open, event.detail === 0);
+  if (open) {
+    document
+      .querySelector("#executive-menu-panel-title")
+      .focus({ preventScroll: true });
+    executivePanel.scrollIntoView({
+      behavior: motionAllowed() && event.detail !== 0 ? "smooth" : "instant",
+      block: "start",
+    });
+  }
+});
+document
+  .querySelector("#close-executive-menu")
+  .addEventListener("click", (event) => {
+    setExecutiveOpen(false, event.detail === 0);
+    executiveEntry.focus({ preventScroll: true });
+    executiveEntry.scrollIntoView({ behavior: "instant", block: "center" });
+  });
 const groups = [...document.querySelectorAll(".menu-group")];
 const categoryPhotos = {
   combinados: ["barca-premium.webp", "Barca especial do Joy"],
