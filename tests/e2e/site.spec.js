@@ -5,6 +5,8 @@ test("cardápio, delivery and responsive layout", async ({ page }) => {
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/");
   await expect(page.locator("#hero-title")).toContainText("VOCÊ MERECE");
+  await expect(page.locator("#joy-menu-panel")).toBeHidden();
+  await page.locator("#open-joy-menu").click();
   await page.locator('[data-filter="temakis"]').click();
   await expect(page.locator(".menu-group:visible").first()).toHaveAttribute(
     "data-group",
@@ -52,6 +54,9 @@ test("reduced motion and keyboard navigation", async ({ page, isMobile }) => {
     await expect(page.locator("#mobile-nav")).toBeHidden();
     await expect(page.locator(".menu-toggle")).toBeFocused();
   }
+  await page.locator("#open-joy-menu").focus();
+  await page.keyboard.press("Enter");
+  await expect(page.locator("#joy-menu-panel-title")).toBeFocused();
   await page.locator('[data-filter="sushis"]').click();
   await expect(page.locator(".menu-group:visible").first()).toHaveAttribute(
     "data-group",
@@ -156,4 +161,56 @@ test("Joy gallery cycles through six products and presents freshness information
     "open",
     "",
   );
+});
+
+test("menu covers disclose products on request and preserve product shortcuts", async ({
+  page,
+}, testInfo) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/#cardapio");
+  await expect(page.locator(".menu-edition")).toHaveCount(2);
+  await expect(page.locator(".price").first()).toBeHidden();
+  await expect(page.locator(".menu-edition-executive")).toContainText(
+    "EM BREVE",
+  );
+  await expect(page.locator(".pdf-link")).toHaveAttribute(
+    "href",
+    "assets/cardapio-joy.pdf?v=15",
+  );
+  await page.locator(".menu-editions").scrollIntoViewIfNeeded();
+  await expect(
+    page.locator('img[src$="cardapio-capa-v15.webp"]'),
+  ).toHaveJSProperty("complete", true);
+  await testInfo.attach("menu-covers", {
+    body: await page.locator(".menu-editions").screenshot(),
+    contentType: "image/png",
+  });
+  await page.locator("#open-joy-menu").click();
+  await expect(page.locator("#joy-menu-panel")).toBeVisible();
+  for (const category of [
+    "combinados",
+    "sushis",
+    "temakis",
+    "entradas",
+    "quentes",
+    "bebidas",
+  ]) {
+    await page.locator(`[data-filter="${category}"]`).click();
+    await expect(page.locator(".menu-group:visible").first()).toHaveAttribute(
+      "data-group",
+      category,
+    );
+    await expect(page.locator(".price:visible").first()).toBeVisible();
+  }
+  await page.locator("#close-joy-menu").click();
+  await expect(page.locator("#joy-menu-panel")).toBeHidden();
+  await expect(page.locator("#open-joy-menu")).toBeFocused();
+  await page.locator('[data-jump="temakis"]').first().click();
+  await expect(page.locator("#joy-menu-panel")).toBeVisible();
+  await expect(page.locator('[data-filter="temakis"]')).toBeFocused();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
 });

@@ -101,3 +101,21 @@ it("interrupts pointer accordion transitions without losing the final state", as
   await Promise.resolve();
   expect(group.open).toBe(false);
 });
+
+it("keeps products collapsed until requested and restores entry focus on close", () => {
+  const panel = document.querySelector("#joy-menu-panel");
+  const entry = document.querySelector("#open-joy-menu");
+  expect(panel.hidden).toBe(true);
+  expect(entry.getAttribute("aria-expanded")).toBe("false");
+  entry.click();
+  expect(panel.hidden).toBe(false);
+  expect(panel.inert).toBe(false);
+  expect(document.activeElement.id).toBe("joy-menu-panel-title");
+  document.querySelector("#close-joy-menu").click();
+  expect(panel.hidden).toBe(true);
+  expect(panel.inert).toBe(true);
+  expect(document.activeElement).toBe(entry);
+  document.querySelector('[data-jump="temakis"]').click();
+  expect(panel.hidden).toBe(false);
+  expect(entry.getAttribute("aria-expanded")).toBe("true");
+});

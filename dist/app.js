@@ -39,6 +39,34 @@ document.addEventListener("keydown", (event) => {
 });
 
 const filters = [...document.querySelectorAll("[data-filter]")];
+const menuEntry = document.querySelector("#open-joy-menu");
+const menuPanel = document.querySelector("#joy-menu-panel");
+const setCardapioVisible = createDisclosure(menuPanel, motionAllowed);
+function setCardapioOpen(open, keyboard = false) {
+  menuEntry.setAttribute("aria-expanded", String(open));
+  document.querySelector("#joy-menu-action").textContent = open
+    ? "Fechar cardápio"
+    : "Explorar cardápio";
+  void setCardapioVisible(open, keyboard);
+}
+menuEntry.addEventListener("click", (event) => {
+  const open = menuEntry.getAttribute("aria-expanded") !== "true";
+  setCardapioOpen(open, event.detail === 0);
+  if (open) {
+    document
+      .querySelector("#joy-menu-panel-title")
+      .focus({ preventScroll: true });
+    menuPanel.scrollIntoView({
+      behavior: motionAllowed() && event.detail !== 0 ? "smooth" : "instant",
+      block: "start",
+    });
+  }
+});
+document.querySelector("#close-joy-menu").addEventListener("click", (event) => {
+  setCardapioOpen(false, event.detail === 0);
+  menuEntry.focus({ preventScroll: true });
+  menuEntry.scrollIntoView({ behavior: "instant", block: "center" });
+});
 const groups = [...document.querySelectorAll(".menu-group")];
 const categoryPhotos = {
   combinados: ["barca-premium.webp", "Barca especial do Joy"],
@@ -89,7 +117,8 @@ function chooseCategory(category, scroll = false, keyboard = false) {
     );
   }
   if (scroll) {
-    document.querySelector("#cardapio").scrollIntoView({
+    setCardapioOpen(true, keyboard);
+    menuPanel.scrollIntoView({
       behavior: motionAllowed() && !keyboard ? "smooth" : "instant",
     });
     selected.focus({ preventScroll: true });
