@@ -135,7 +135,7 @@ document.querySelectorAll("[data-jump]").forEach((button) => {
   );
 });
 
-chooseCategory("combinados", false, true);
+chooseCategory("entradas", false, true);
 
 const hero = document.querySelector(".hero");
 const slideButtons = [...document.querySelectorAll("[data-slide]")];
