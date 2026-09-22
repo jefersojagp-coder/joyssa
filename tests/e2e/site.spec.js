@@ -175,7 +175,7 @@ test("menu covers disclose products on request and preserve product shortcuts", 
   );
   await expect(page.locator(".menu-heading .pdf-link")).toHaveAttribute(
     "href",
-    "assets/cardapio-joy.pdf?v=15",
+    "assets/cardapio-joy.pdf?v=16",
   );
   await page.locator(".menu-editions").scrollIntoViewIfNeeded();
   await expect(
@@ -231,9 +231,9 @@ test("executive lunch opens independently with its own prices and PDF", async ({
   await expect(panel).toContainText("R$ 42,90");
   await expect(panel.locator(".executive-pdf")).toHaveAttribute(
     "href",
-    "assets/menu-executivo-joy-v2.pdf",
+    "assets/menu-executivo-joy-v3.pdf",
   );
-  const pdf = await page.request.get("/assets/menu-executivo-joy-v2.pdf");
+  const pdf = await page.request.get("/assets/menu-executivo-joy-v3.pdf");
   expect(pdf.ok()).toBe(true);
   expect((await pdf.body()).subarray(0, 5).toString()).toBe("%PDF-");
   await testInfo.attach("executive-menu", {
