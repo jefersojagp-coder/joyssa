@@ -41,6 +41,8 @@ document.addEventListener("keydown", (event) => {
 const filters = [...document.querySelectorAll("[data-filter]")];
 const menuEntry = document.querySelector("#open-joy-menu");
 const menuPanel = document.querySelector("#joy-menu-panel");
+menuPanel.hidden = true;
+menuPanel.inert = true;
 const setCardapioVisible = createDisclosure(menuPanel, motionAllowed);
 function setCardapioOpen(open, keyboard = false) {
   if (open) setExecutiveOpen(false, true);
@@ -70,6 +72,8 @@ document.querySelector("#close-joy-menu").addEventListener("click", (event) => {
 });
 const executiveEntry = document.querySelector("#open-executive-menu");
 const executivePanel = document.querySelector("#executive-menu-panel");
+executivePanel.hidden = true;
+executivePanel.inert = true;
 const setExecutiveVisible = createDisclosure(executivePanel, motionAllowed);
 function setExecutiveOpen(open, keyboard = false) {
   executiveEntry.setAttribute("aria-expanded", String(open));

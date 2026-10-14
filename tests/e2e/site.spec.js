@@ -254,3 +254,18 @@ test("executive lunch opens independently with its own prices and PDF", async ({
     ),
   ).toBe(true);
 });
+
+test("menus remain readable and PDFs reachable without JavaScript", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  await page.goto("http://127.0.0.1:4173/#cardapio");
+  await expect(page.locator("#joy-menu-panel")).toBeVisible();
+  await expect(page.locator("#executive-menu-panel")).toBeVisible();
+  await expect(page.locator(".menu-item")).toHaveCount(141);
+  await expect(page.locator(".executive-item")).toHaveCount(33);
+  await expect(page.locator(".executive-pdf")).toBeVisible();
+  await expect(page.locator(".menu-editions")).toBeHidden();
+  await context.close();
+});

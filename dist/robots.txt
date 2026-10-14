@@ -1,2 +1,5 @@
+# Allow crawling so search engines can read the noindex meta tag.
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /assets/cardapio-joy.pdf
+Disallow: /assets/menu-executivo-joy-v4.pdf

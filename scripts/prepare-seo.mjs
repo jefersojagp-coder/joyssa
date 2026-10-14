@@ -19,11 +19,11 @@ if (production) {
   cpSync("dist", target, { recursive: true });
 }
 const url = production
-  ? "https://joyrestaurante.com/"
+  ? "https://joysushibar.com.br/"
   : "https://joy-sushi-bar-nova-versao.jefersojagp.chatgpt.site/";
 const title = "Joy Sushi Bar | Restaurante japonês em Alphaville, Salvador";
 const description =
-  "Sushis, sashimis, temakis e combinados no Alpha Mall, em Alphaville, Salvador. Veja o cardápio do Joy e peça por WhatsApp, iFood ou 99Food.";
+  "Joy Sushi Bar no Alpha Mall, Alphaville, Salvador. Conheça os sushis, barcas e menu executivo. Peça delivery pelo WhatsApp, iFood ou 99Food.";
 let html = readFileSync(`${target}/index.html`, "utf8");
 const doc = new JSDOM(html).window.document;
 const restaurant = {
@@ -46,14 +46,67 @@ const restaurant = {
     (file) => `${url}assets/${file}`,
   ),
   logo: `${url}assets/logo.png`,
-  hasMenu: `${url}#cardapio`,
+  hasMenu: [{ "@id": `${url}#menu-joy` }, { "@id": `${url}#menu-executivo` }],
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ].map((day) => `https://schema.org/${day}`),
+      opens: "11:00",
+      closes: "23:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "https://schema.org/Sunday",
+      opens: "15:00",
+      closes: "23:00",
+    },
+  ],
   hasMap: doc.querySelector(".visit-photo").href,
   sameAs: [doc.querySelector(".instagram-center").href],
 };
+const menus = [
+  {
+    id: "menu-joy",
+    name: "Cardápio Joy",
+    selector: "[data-filter]",
+    pdf: ".menu-heading .pdf-link",
+  },
+  {
+    id: "menu-executivo",
+    name: "Menu Executivo",
+    selector: ".executive-group summary",
+    pdf: ".executive-pdf",
+  },
+].map((menu) => ({
+  "@type": "Menu",
+  "@id": `${url}#${menu.id}`,
+  name: menu.name,
+  url: `${url}#cardapio`,
+  inLanguage: "pt-BR",
+  hasMenuSection: [...doc.querySelectorAll(menu.selector)].map((el) => ({
+    "@type": "MenuSection",
+    name: el.children[1].textContent.trim(),
+  })),
+  subjectOf: {
+    "@type": "DigitalDocument",
+    name: `${menu.name} em PDF`,
+    encodingFormat: "application/pdf",
+    url: new URL(doc.querySelector(menu.pdf).getAttribute("href"), url).href,
+    inLanguage: "pt-BR",
+  },
+}));
 const graph = {
   "@context": "https://schema.org",
   "@graph": [
     restaurant,
+    ...menus,
     {
       "@type": "WebSite",
       "@id": `${url}#website`,
@@ -81,7 +134,7 @@ const graph = {
   ],
 };
 const robots = production
-  ? "index, follow, max-image-preview:large"
+  ? "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
   : "noindex, nofollow";
 const tags = `<!-- joy-seo:start -->
 <title>${title}</title>
@@ -114,17 +167,25 @@ html = html
   .replace(/<meta name="description"[^>]*>/g, "");
 html = html.replace("</head>", `${tags}\n</head>`);
 writeFileSync(`${target}/index.html`, html);
+const previewPdfRules = menus
+  .map((menu) => `Disallow: ${new URL(menu.subjectOf.url).pathname}`)
+  .join("\n");
 writeFileSync(
   `${target}/robots.txt`,
   production
     ? `User-agent: *\nAllow: /\n\nSitemap: ${url}sitemap.xml\n`
-    : "User-agent: *\nDisallow: /\n",
+    : `# Allow crawling so search engines can read the noindex meta tag.\nUser-agent: *\nAllow: /\n${previewPdfRules}\n`,
 );
 rmSync(`${target}/sitemap.xml`, { force: true });
 if (production) {
+  const imageEntries = restaurant.image
+    .map(
+      (image) => `<image:image><image:loc>${image}</image:loc></image:image>`,
+    )
+    .join("");
   writeFileSync(
     `${target}/sitemap.xml`,
-    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${url}</loc></url></urlset>\n`,
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"><url><loc>${url}</loc>${imageEntries}</url></urlset>\n`,
   );
 }
 console.log(`SEO ${mode}: ${target}`);

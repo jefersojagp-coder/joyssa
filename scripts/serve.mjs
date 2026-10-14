@@ -12,6 +12,7 @@ const types = {
   ".webp": "image/webp",
   ".svg": "image/svg+xml",
   ".ttf": "font/ttf",
+  ".woff2": "font/woff2",
   ".pdf": "application/pdf",
   ".xml": "application/xml",
   ".txt": "text/plain; charset=utf-8",
