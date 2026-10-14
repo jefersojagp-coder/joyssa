@@ -14,7 +14,7 @@ O diretório dist contém a referência navegável em HTML, CSS e JavaScript, co
 
 Reproduzir no editor instalado as seções: cabeçalho sobreposto, abertura com galeria, experiência Joy, galeria expansível de pratos, cardápio com categorias laterais, delivery, localização com foto do Alpha Mall, espaço para tour virtual, galeria do Instagram e rodapé. Aplicar a paleta e tipografia globais, subir os arquivos de assets à biblioteca de mídia e substituir seus caminhos. Reconstruir os blocos como elementos editáveis do editor para facilitar atualizações futuras. O CSS responsivo serve como referência exata das proporções.
 
-O cardápio vem da versão 13 do projeto anterior. Antes da publicação no domínio oficial, confirmar preços, horários e disponibilidade com o restaurante. O PDF para download é o JOY-cardapio-v16-WhatsApp.pdf indicado pelo cliente em 22/09/2026, com 14 páginas, publicado como enviado. O domínio oficial não foi alterado.
+O cardápio vem da versão 13 do projeto anterior. Antes da publicação no domínio oficial, confirmar preços, horários e disponibilidade com o restaurante. O PDF para download é o JOY-cardapio-v17-WhatsApp.pdf indicado pelo cliente em 14/10/2026, com 14 páginas, publicado como enviado. O domínio oficial não foi alterado.
 
 ## Prévia local
 Servir dist com um servidor HTTP estático. Nenhuma instalação de dependências é necessária.
@@ -54,6 +54,6 @@ Destino: https://github.com/jefersojagp-coder/joyssa. O acesso de escrita foi au
 
 ## Atualização de fotos e PDF
 
-A fachada usa a nova imagem Alpha Mall enviada em 13/09/2026. A categoria Quentes & doces usa a fotografia real de yakisoba RBS09772.jpg, do acervo do Joy, com enquadramento preservado e arquivo otimizado para web. O PDF WhatsApp v16 substitui a versão anterior apenas no download; os 141 itens do cardápio navegável foram preservados.
+A fachada usa a nova imagem Alpha Mall enviada em 13/09/2026. A categoria Quentes & doces usa a fotografia real de yakisoba RBS09772.jpg, do acervo do Joy, com enquadramento preservado e arquivo otimizado para web. O PDF WhatsApp v17 substitui a versão anterior apenas no download; os 141 itens do cardápio navegável foram preservados.
 
-Os downloads foram atualizados em 22/09/2026 com os arquivos originais JOY-cardapio-v16-WhatsApp.pdf (14 páginas) e JOY-menu-executivo-A4-v3.pdf (2 páginas). Esta atualização altera somente os PDFs e seus links; produtos e preços do cardápio navegável permanecem preservados.
+Os downloads foram atualizados em 14/10/2026 com os arquivos originais JOY-cardapio-v17-WhatsApp.pdf (14 páginas) e JOY-menu-executivo-A4-v4.pdf (2 páginas). Esta atualização altera somente os PDFs e seus links; produtos e preços do cardápio navegável permanecem preservados.
